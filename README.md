@@ -28,8 +28,8 @@ Simplifies payload creation and listener.
     lin32    <LHOST> <LPORT>  |   x32 Linux payload
     mysql64  <LHOST> <LPORT>  |   x64 Linux mysql payload
     mofnc    <LHOST> <LPORT>  |   netcat reverse_tcp mof payload
-    dockerpy <LHOST> <LPORT>  |   cve-2019-5736 docker payload
-    dockerb  <LHOST> <LPORT>  |   cve-2019-5736 docker compiled payload
+    dockerpy <LHOST> <LPORT>  |   cve-2019-5736 docker payload 
+    dockerb  <LHOST> <LPORT>  |   cve-2019-5736 docker compiled payload 
                               |
   <~~~~~~~~~~~~~~~~~~~~~~~[Payloads CLI]~~~~~~~~~~~~~~~~~~~~~~~~~~>
                               |
@@ -42,14 +42,25 @@ Simplifies payload creation and listener.
     b64py2   <LHOST> <LPORT>  |   base64 encoded python2 payload
     b64py3   <LHOST> <LPORT>  |   base64 encoded python3 payload
     nc       <LHOST> <LPORT>  |   np reverse_tcp payload
+    curlrun  <LHOST> <LPORT>  |   Curl download pipe to bash
+    curlrunp <LHOST> <LPORT>  |   Curl download and pipe to perl
+    wgetrun  <LHOST> <LPORT>  |   Wget download pipe to bash
+    wgetrunp <LHOST> <LPORT>  |   Wget download pipe to perl
   <~~~~~~~~~~~~~~~~~~~~~~~[Win Payloads CLI]~~~~~~~~~~~~~~~~~~~~~~~>
                               |
     winhttp  <LHOST> <LPORT>  |    windows download and execute
     windl    <LHOST> <LPORT>  |    windows download file
     wincert  <LHOST> <LPORT>  |    windows download file with certutil
     winup    <LHOST> <LPORT>  |    windows webdav file upload
+    ftpdl    <LHOST> <LPORT>  |    windows FTP download 
+    winwget  <LHOST> <LPORT>  |    windows wget download
                               |
-  <~~~~~~~~~~~~~~~~~~~~~[Payloads SQLI]~~~~~~~~~~~~~~~~~~~~~~~~~~~~>
+  <~~~~~~~~~~~~~~~~~~~~~[PHP Shells]~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>
+                              | 
+    phpcmd                    |    Standard PHP Shell
+    phprev   <LHOST> <LPORT>  |    PHP reverse shell
+                              |
+  <~~~~~~~~~~~~~~~~~~~~~[Payloads SQLI]~~~~~~~~~~~~~~~~~~~~~~~~~~~~>  
                               |
     xpcmdi   exec <COMMAND>   |    Output xp_cmdshell sqli payload
                               |
